@@ -1,0 +1,25 @@
+require: 
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  Exclude:
+    - node_modules/**/*
+    - db/**
+    - db/migrate/**
+    - bin/**
+    - vendor/**/*
+    - vendor/**/*
+    - lib/tasks/cucumber.rake
+    - data/*
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+
+Style/Documentation:
+  Enabled: false
