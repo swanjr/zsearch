@@ -1,0 +1,9 @@
+<h1>ZSearch</h1>
+
+<p>Search organizations, users, and/or tickets.</p>
+
+<%= form_with model: @search, url: search_path do |f| %>
+  <%= f.label :query %>:
+  <%= f.text_field :query %>
+  <%= f.submit "Search" %>
+<% end %>
