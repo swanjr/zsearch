@@ -9,3 +9,10 @@ Rails.application.load_tasks
 
 require 'bundler/audit/task'
 Bundler::Audit::Task.new
+
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new do |task|
+  task.requires << 'rubocop-rails'
+  task.requires << 'rubocop-rspec'
+  task.requires << 'rubocop-performance'
+end

@@ -1,5 +1,6 @@
-class SearchController < ApplicationController
+# frozen_string_literal: true
 
+class SearchController < ApplicationController
   def new
     @search = Search.new
   end

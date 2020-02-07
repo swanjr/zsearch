@@ -32,6 +32,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.0.beta'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
@@ -45,12 +46,13 @@ group :development do
   gem 'bundler-audit'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rack-mini-profiler'
-  gem 'yard'
   gem 'web-console', '>= 3.3.0'
+  gem 'yard'
 end
 
 group :test do
-  gem 'cucumber-rails', require: false
+  gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false
 end
 
