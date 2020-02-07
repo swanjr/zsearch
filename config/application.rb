@@ -36,5 +36,13 @@ module Zsearch
 
     # Don't generate active_storage routes (althought it doesn't appear to be working)
     config.active_storage.draw_routes = false
+
+    config.generators do |g|
+      g.helper false
+      g.test_framework :rspec,
+        view_specs:       false,
+        helper_specs:     false,
+        controller_specs: false
+    end
   end
 end
