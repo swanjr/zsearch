@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# Configure Capybara for rspec system tests
+require 'capybara/rspec'
+Capybara.server = :puma
+
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.javascript_driver = :selenium_chrome
+
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :rack_test
