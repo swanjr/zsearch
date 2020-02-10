@@ -15,7 +15,11 @@ cd zsearch
 Check ruby version: `ruby -v`
 If you Ruby version < 2.7.0, install it (recommend using [rbenv](https://github.com/rbenv/rbenv#installation). 
 ```shell
-rbenv install 2.5.1
+rbenv install 2.7.0
+```
+Switch to using Ruby 2.7.0
+```shell
+rbenv local 2.7.0
 ```
 
 ## Install MySql
