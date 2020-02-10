@@ -1,0 +1,14 @@
+<div>
+  <div>Id: <%=organization.external_id %></div>
+  <div>Url: <%=organization.url %></div>
+  <div>Name: <%=organization.name %></div>
+  <div>Domain Names: <%=organization.domain_names %></div> 
+  <div>Details: <%=organization.details %></div>
+  <div>Shared Tickets: <%=organization.shared_tickets %></div>
+  <div>Created: <%=organization.created_at %></div>
+  <div>Tags: <%=organization.tags %></div>
+
+  <% organization.users.each_with_index do |user, index| %>
+    <div>User <%=index%>: <%=user.name %></div>
+  <% end %>
+</div>

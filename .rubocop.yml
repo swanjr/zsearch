@@ -20,6 +20,7 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - config/**/*
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false
@@ -29,10 +30,6 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Max: 10
-
-Metric/BlockLength:
-  Exclude: 
-    - spec/**/*
 
 RSpec/MessageSpies:
   EnforcedStyle: receive

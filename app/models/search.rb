@@ -5,7 +5,7 @@ class Search
 
   FIELD_DELIMITER = ','
   KV_DELIMITER = ':'
-  VALID_TYPES = ['user'].freeze
+  VALID_TYPES = %w[user organization].freeze
 
   attr_accessor :query, :type
 
@@ -45,7 +45,7 @@ class Search
     pairs.each do |pair|
       kv = pair.split(KV_DELIMITER)
       # Include '' string in "no value" searches
-      criteria[kv[0].to_sym] = kv[1] || [nil, '']
+      criteria[kv[0].to_sym] = kv[1] || [nil, ''] unless kv.empty?
     end
     criteria
   end

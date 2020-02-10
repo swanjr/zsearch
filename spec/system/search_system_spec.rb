@@ -10,19 +10,36 @@ RSpec.describe 'Search', type: :system do
   end
 
   context 'when searching users' do
-    let!(:users) { FactoryBot.create_list(:user, 3) }
+    let!(:users) { FactoryBot.create_list(:user, 2) }
 
     it 'displays users matching the query' do
       visit '/'
       find_field('search_query')
 
-      fill_in 'search_query', with: "name:#{users[1].name}"
+      fill_in 'search_query', with: "name:#{users.first.name}"
       choose 'search_type_user'
 
       click_button 'Search'
 
-      expect(page).not_to have_text('No results found')
-      expect(page).to have_text("Name: #{users[1].name}")
+      expect(page).to have_text("Name: #{users.first.name}")
+      expect(page).not_to have_text("Name: #{users.second.name}")
+    end
+  end
+
+  context 'when searching organizations' do
+    let!(:organizations) { FactoryBot.create_list(:organization_with_users, 2) }
+
+    it 'displays organizations matching the query' do
+      visit '/'
+      find_field('search_query')
+
+      fill_in 'search_query', with: "name:#{organizations.first.name}"
+      choose 'search_type_organization'
+
+      click_button 'Search'
+
+      expect(page).to have_text("Name: #{organizations.first.name}")
+      expect(page).not_to have_text("Name: #{organizations.second.name}")
     end
   end
 end
