@@ -2,8 +2,31 @@
 
 <p>Search organizations, users, and/or tickets.</p>
 
-<%= form_with model: @search, url: search_path do |f| %>
-  <%= f.label :query %>:
+<%= form_with model: @search, url: search_path, local: true do |f| %>
+  <div id="search">
+  <%= f.label :query, "Query:" %>
   <%= f.text_field :query %>
   <%= f.submit "Search" %>
+  </div>
+  <div id="search_types">
+    Search For:
+    <%= f.label :type, "Users"  %>
+    <%= f.radio_button :type, 'user' %>
+  </div>
 <% end %>
+</br>
+
+<% if @search.errors.any? %>
+  <div id="error">
+    <ul>
+      <% @search.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div class="results">
+    <%= render(partial: @search.type, collection: @search.results) || "No results found" %>
+  </div>
+<% end %>
+
