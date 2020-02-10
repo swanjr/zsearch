@@ -97,7 +97,7 @@ bundle exec rake bundle:audit
 ```
 
 # Rubocop
-Rubocop is a static code analyzer and formatter.
+[Rubocop](https://github.com/rubocop-hq/rubocop) is a static code analyzer and formatter.
 
 Run Rubocop:
 ```
