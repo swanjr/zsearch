@@ -9,7 +9,7 @@ class SearchController < ApplicationController
     @search = Search.new(query_params)
     @search.run
 
-    render :new
+    render :edit
   end
 
   private
