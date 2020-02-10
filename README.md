@@ -2,17 +2,17 @@
 
 ZSearch is a Ruby on Rails application that can perform multifield searches for organization, user, and ticket information. 
 
-# Application Setup
+## Application Setup
 The steps below assume a Mac installation with Homebrew. If you do not have Homebrew please see https://brew.sh/.
 
-## Clone Repository
+### Clone Repository
 Open a terminal and clone the ZSearch github repository to your computer.
 ```shell
 git clone https://github.com/swanjr/zsearch.git
 cd zsearch
 ```
 
-## Install Ruby
+### Install Ruby
 Check ruby version: `ruby -v`
 
 If your Ruby version is < 2.7.0, install it (recommend using [rbenv](https://github.com/rbenv/rbenv#installation). 
@@ -31,7 +31,7 @@ You may need to upgrade rbenv if it cannot find Ruby 2.7.0 in its list:
 brew upgrade rbenv ruby-build
 ```
 
-## Install MySql
+### Install MySql
 Install MySql 8 Server with Homebrew:
 ```shell
 brew update && brew install mysql
@@ -48,7 +48,7 @@ The database.yml file expects MySql server to be running with the default creden
 
 If you are using other credentials for your local MySql server please update database.yml as necessary.
 
-## Install Gem Dependencies
+### Install Gem Dependencies
 Install Bundler:
 ```shell
 gem install bundler
@@ -59,24 +59,24 @@ Install Yarn:
 brew update && brew install yarn
 ```
 
-## Run Bundler
+### Run Bundler
 Install Gems declared in Gemfile:
 ```shell
 bundle install
 ```
 
-## Install Javascript Dependencies
+### Install Javascript Dependencies
 Install Javascript libraries: 
 ```shell
 yarn install
 ```
 
-## Setup Database
+### Setup Database
 ```shell
 rails db:create db:migrate db:seed
 ```
 
-## Use Application
+### Use Application
 Start rails server locally:
 ```shell
 rails s
@@ -84,7 +84,7 @@ rails s
 View application in browser at http://localhost:3000. The instructions for how to use the search are displayed 
 on the homepage page.
 
-# Test Suite
+## Test Suite
 All testing was done with RSpec model, request, and system specs. SimpleCov is run during the specs to check code coverage, which is required to be above 95%. After running all specs with `bundle exec rake spec`, the coverage report can be found under the "coverage" directory.
 
 Run all specs
@@ -107,7 +107,7 @@ Run system specs
 bundle exec rake spec:system
 ```
 
-# Bundle Auditer
+## Bundle Auditer
 The [bundle-audit](https://github.com/rubysec/bundler-audit) gem performs patch-level 
 verification on gems installed through bundler.
 
@@ -116,7 +116,7 @@ Run bundle-audit:
 bundle exec rake bundle:audit
 ```
 
-# Rubocop
+## Rubocop
 [Rubocop](https://github.com/rubocop-hq/rubocop) is a static code analyzer and formatter.
 
 Run Rubocop:
@@ -124,7 +124,7 @@ Run Rubocop:
 bundle exec rake rubocop
 ```
 
-# Design Assumptions
+## Design Assumptions
 These are some of the assumptions made during the project.
 - Imported the JSON data file to a production capable database server.
 - Clean the JSON data of foreign key references pointing to non-existant entities. 
