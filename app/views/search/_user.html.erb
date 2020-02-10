@@ -5,7 +5,7 @@
   <div>Alias: <%=user.alias %></div> 
   <div>Email: <%=user.email %></div>
   <div>Phone: <%=user.phone %></div>
-  <div>Organization: <%=user.organization.name %></div>
+  <div>Organization: <%=user.organization.name if user.organization.present? %></div>
   <div>Role: <%=user.role %></div>
   <div>Active: <%=user.active %></div>
   <div>Verified: <%=user.verified %></div>

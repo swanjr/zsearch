@@ -50,13 +50,13 @@ RSpec.describe 'Search', type: :system do
       visit '/'
       find_field('search_query')
 
-      fill_in 'search_query', with: "name:#{tickets.first.subject}"
+      fill_in 'search_query', with: "subject:#{tickets.first.subject}"
       choose 'search_type_ticket'
 
       click_button 'Search'
 
-      expect(page).to have_text("Name: #{tickets.first.subject}")
-      expect(page).not_to have_text("Name: #{tickets.second.subject}")
+      expect(page).to have_text("Subject: #{tickets.first.subject}")
+      expect(page).not_to have_text("Subject: #{tickets.second.subject}")
     end
   end
 end

@@ -5,7 +5,7 @@ class Search
 
   FIELD_DELIMITER = ','
   KV_DELIMITER = ':'
-  VALID_TYPES = %w[user organization].freeze
+  VALID_TYPES = %w[user organization ticket].freeze
 
   attr_accessor :query, :type
 

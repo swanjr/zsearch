@@ -29,30 +29,30 @@ RSpec.describe Ticket, type: :model do
     end
 
     it 'to not return internal ids' do
-      expect(described_class.searchable_fields).not_to include(:_id, :organization_id)
+      expect(described_class.searchable_fields).not_to include(:_id, :organization_id, :submitter_id, :assignee_id)
     end
   end
 
   describe '.search' do
-    let!(:ticket_1) { FactoryBot.create(:ticket) }
-    let!(:ticket_2) { FactoryBot.create(:ticket) }
+    let!(:ticket_1) { FactoryBot.create(:ticket, subject: 'Power outage') }
     let(:results) { described_class.search(subject: ticket_1.subject) }
 
     it 'returns tickets matching the provided column/values pairs' do
+      FactoryBot.create(:ticket, subject: 'Computer problem')
       expect(results.count).to be(1)
       expect(results.first.subject).to eq(ticket_1.subject)
     end
 
     it 'returns submitter information for tickets' do
-      expect(results.first.submitters.name).to be(ticket_1.submitter.name)
+      expect(results.first.submitter.name).to eq(ticket_1.submitter.name)
     end
 
     it 'returns assignee information for tickets' do
-      expect(results.first.assignee.name).to be(ticket_1.assignee.name)
+      expect(results.first.assignee.name).to eq(ticket_1.assignee.name)
     end
 
     it 'returns organization information for tickets' do
-      expect(results.first.organization.name).to be(ticket_1.organization.name)
+      expect(results.first.organization.name).to eq(ticket_1.organization.name)
     end
   end
 end
