@@ -7,11 +7,14 @@ class SearchController < ApplicationController
 
   def create
     @search = Search.new(query_params)
+    @search.run
+
+    render :new
   end
 
   private
 
   def query_params
-    params.require(:search).permit(:query)
+    params.require(:search).permit(:query, :type)
   end
 end

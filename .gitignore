@@ -28,6 +28,7 @@
 *.gem
 *.rbc
 *.swp
+.DS_Store
 /.config
 /coverage/
 /InstalledFiles
