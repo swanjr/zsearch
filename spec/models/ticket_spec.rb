@@ -22,4 +22,37 @@ RSpec.describe Ticket, type: :model do
     it { is_expected.to validate_uniqueness_of(:url).ignoring_case_sensitivity }
     it { is_expected.to validate_uniqueness_of(:external_id).ignoring_case_sensitivity }
   end
+
+  describe '.searchable_fields' do
+    it 'returns fields that can be searched on' do
+      expect(described_class.column_names.map(&:to_sym)).to include(*described_class.searchable_fields)
+    end
+
+    it 'to not return internal ids' do
+      expect(described_class.searchable_fields).not_to include(:_id, :organization_id, :submitter_id, :assignee_id)
+    end
+  end
+
+  describe '.search' do
+    let!(:ticket_1) { FactoryBot.create(:ticket, subject: 'Power outage') }
+    let(:results) { described_class.search(subject: ticket_1.subject) }
+
+    it 'returns tickets matching the provided column/values pairs' do
+      FactoryBot.create(:ticket, subject: 'Computer problem')
+      expect(results.count).to be(1)
+      expect(results.first.subject).to eq(ticket_1.subject)
+    end
+
+    it 'returns submitter information for tickets' do
+      expect(results.first.submitter.name).to eq(ticket_1.submitter.name)
+    end
+
+    it 'returns assignee information for tickets' do
+      expect(results.first.assignee.name).to eq(ticket_1.assignee.name)
+    end
+
+    it 'returns organization information for tickets' do
+      expect(results.first.organization.name).to eq(ticket_1.organization.name)
+    end
+  end
 end

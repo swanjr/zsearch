@@ -42,4 +42,21 @@ RSpec.describe 'Search', type: :system do
       expect(page).not_to have_text("Name: #{organizations.second.name}")
     end
   end
+
+  context 'when searching tickets' do
+    let!(:tickets) { FactoryBot.create_list(:ticket, 2) }
+
+    it 'displays tickets matching the query' do
+      visit '/'
+      find_field('search_query')
+
+      fill_in 'search_query', with: "subject:#{tickets.first.subject}"
+      choose 'search_type_ticket'
+
+      click_button 'Search'
+
+      expect(page).to have_text("Subject: #{tickets.first.subject}")
+      expect(page).not_to have_text("Subject: #{tickets.second.subject}")
+    end
+  end
 end
