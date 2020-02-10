@@ -11,5 +11,16 @@ FactoryBot.define do
     created_at { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
 
     association :organization
+
+    factory :user_with_tickets do
+      transient do
+        ticket_count { 2 }
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:ticket, evaluator.ticket_count, submitter: user)
+        create_list(:ticket, evaluator.ticket_count, assignee: user)
+      end
+    end
   end
 end

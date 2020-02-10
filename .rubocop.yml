@@ -30,6 +30,8 @@ Style/Documentation:
 
 RSpec/MultipleExpectations:
   Max: 2
+  Exclude:
+    - spec/system/*
 
 RSpec/ExampleLength:
   Max: 10
