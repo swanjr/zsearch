@@ -5,7 +5,7 @@ ZSearch is a Ruby on Rails application that can perform multifield searches for 
 # Application Setup
 
 ## Clone Repository
-Open a terminal and clone the ZSearch githug repository to your computer.
+Open a terminal and clone the ZSearch github repository to your computer.
 ```shell
 git clone git@github.com:swanjr/zsearch.git
 cd zsearch
@@ -13,7 +13,7 @@ cd zsearch
 
 ## Install Ruby
 Check ruby version: `ruby -v`
-If you Ruby version < 2.7.0, install it (recommend using [rbenv](https://github.com/rbenv/rbenv#installation). 
+If your Ruby version < 2.7.0, install it (recommend using [rbenv](https://github.com/rbenv/rbenv#installation). 
 ```shell
 rbenv install 2.7.0
 ```
@@ -37,7 +37,7 @@ The database.yml file expects MySql server to be running with the default creden
 - Username: root
 - Password: 
 
-If you are using other credentials for your local MySql server please update database.yml as needed.
+If you are using other credentials for your local MySql server please update database.yml as necessary.
 
 ## Install Gem Dependencies
 Install Bundler:
@@ -76,7 +76,7 @@ View application in browser at http://localhost:3000. The instructions for how t
 on the homepage page.
 
 # Test Suite
-All testing was done with RSpec model, request, and system specs. 
+All testing was done with RSpec model, request, and system specs. SimpleCov is run during the specs to check code coverage, which is required to be above 95%. After running all specs with `bundle exec rake spec`, the coverage report can be found under the "coverage" directory.
 
 Run all specs
 ```shell
