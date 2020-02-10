@@ -112,3 +112,4 @@ bundle exec rake rubocop
 These are some of the assumptions made during the project.
 - Database primary and foreign keys should not be searchable. Instead 'external_id' should be used.
 - Allow users to search by multiple fields in the same query.
+- Implement a specialized Search PORO to contain the logic specific to unstanding the search interfaces query language.
