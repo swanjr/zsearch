@@ -3,23 +3,32 @@
 ZSearch is a Ruby on Rails application that can perform multifield searches for organization, user, and ticket information. 
 
 # Application Setup
+The steps below assume a Mac installation with Homebrew. If you do not have Homebrew please see https://brew.sh/.
 
 ## Clone Repository
 Open a terminal and clone the ZSearch github repository to your computer.
 ```shell
-git clone git@github.com:swanjr/zsearch.git
+git clone https://github.com/swanjr/zsearch.git
 cd zsearch
 ```
 
 ## Install Ruby
 Check ruby version: `ruby -v`
-If your Ruby version < 2.7.0, install it (recommend using [rbenv](https://github.com/rbenv/rbenv#installation). 
+
+If your Ruby version is < 2.7.0, install it (recommend using [rbenv](https://github.com/rbenv/rbenv#installation). 
 ```shell
+brew update && brew install rbenv
+rbenv init
 rbenv install 2.7.0
 ```
 Switch to using Ruby 2.7.0
 ```shell
 rbenv local 2.7.0
+```
+
+You may need to upgrade rbenv if it cannot find Ruby 2.7.0 in its list:
+```shell
+brew upgrade rbenv ruby-build
 ```
 
 ## Install MySql
@@ -118,6 +127,7 @@ bundle exec rake rubocop
 # Design Assumptions
 These are some of the assumptions made during the project.
 - Imported the JSON data file to a production capable database server.
+- Clean the JSON data of foreign key references pointing to non-existant entities. 
 - Database primary and foreign keys should not be searchable. Instead 'external_id' should be used.
 - Allow users to search by multiple fields in the same query.
 - Implement a specialized Search PORO to contain the logic specific to understanding the search interfaces query language.
