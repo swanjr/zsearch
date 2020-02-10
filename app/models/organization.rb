@@ -17,6 +17,22 @@ class Organization < ApplicationRecord
   end
 
   def self.search(criteria)
-    Organization.includes(:users).where(criteria)
+    relation = Organization.includes(:users)
+
+    tags = criteria.delete(:tags)
+    if tags.present?
+      tags.split(' ').each do |tag|
+        relation = relation.where('tags LIKE ?', "%#{tag}%")
+      end
+    end
+
+    domains = criteria.delete(:domain_names)
+    if domains.present?
+      domains.split(' ').each do |domain|
+        relation = relation.where('domain_names LIKE ?', "%#{domain}%")
+      end
+    end
+
+    relation = relation.where(criteria)
   end
 end

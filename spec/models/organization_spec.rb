@@ -33,8 +33,8 @@ RSpec.describe Organization, type: :model do
   end
 
   describe '.search' do
-    let!(:apple) { FactoryBot.create(:organization_with_users, name: 'Apple') }
-    let!(:zendesk) { FactoryBot.create(:organization_with_users, name: 'Zendesk') }
+    let!(:apple) { FactoryBot.create(:organization_with_users, name: 'Apple', domain_names: 'apple.com') }
+    let!(:zendesk) { FactoryBot.create(:organization_with_users, name: 'Zendesk', tags: 'zen desk') }
 
     it 'returns organizations matching the provided column/values pairs' do
       organizations = described_class.search(name: zendesk.name)
@@ -45,6 +45,18 @@ RSpec.describe Organization, type: :model do
     it 'returns users associated with the organization' do
       organizations = described_class.search(name: apple.name)
       expect(organizations.first.users.count).to be(apple.users.count)
+    end
+
+    it 'returns organizations matching a domain' do
+      organizations = described_class.search(domain_names: 'apple')
+      expect(organizations.count).to be(1)
+      expect(organizations.first.name).to eq(apple.name)
+    end
+
+    it 'returns organizations matching a tag' do
+      organizations = described_class.search(tags: 'zen')
+      expect(organizations.count).to be(1)
+      expect(organizations.first.name).to eq(zendesk.name)
     end
   end
 end

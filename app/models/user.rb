@@ -17,6 +17,15 @@ class User < ApplicationRecord
   end
 
   def self.search(criteria)
-    User.includes(:organization).where(criteria)
+    relation = User.includes(:organization)
+
+    tags = criteria.delete(:tags)
+    if tags.present?
+      tags.split(' ').each do |tag|
+        relation = relation.where('tags LIKE ?', "%#{tag}%")
+      end
+    end
+
+    relation = relation.where(criteria)
   end
 end

@@ -35,10 +35,10 @@ RSpec.describe Ticket, type: :model do
 
   describe '.search' do
     let!(:ticket_1) { FactoryBot.create(:ticket, subject: 'Power outage') }
+    let!(:ticket_2) { FactoryBot.create(:ticket, subject: 'Computer locked', tags: 'plug out') }
     let(:results) { described_class.search(subject: ticket_1.subject) }
 
     it 'returns tickets matching the provided column/values pairs' do
-      FactoryBot.create(:ticket, subject: 'Computer problem')
       expect(results.count).to be(1)
       expect(results.first.subject).to eq(ticket_1.subject)
     end
@@ -53,6 +53,12 @@ RSpec.describe Ticket, type: :model do
 
     it 'returns organization information for tickets' do
       expect(results.first.organization.name).to eq(ticket_1.organization.name)
+    end
+
+    it 'returns tickets matching a tag' do
+      tickets = described_class.search(tags: 'out')
+      expect(tickets.count).to be(1)
+      expect(tickets.first.subject).to eq(ticket_2.subject)
     end
   end
 end

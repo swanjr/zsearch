@@ -7,6 +7,7 @@ FactoryBot.define do
     external_id { SecureRandom.uuid }
     name { Faker::Name.name }
     self.alias { 'MyString' }
+    tags { Faker::Lorem.unique.words(number: 3).join(' ') }
     created_at { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
 
     association :organization
