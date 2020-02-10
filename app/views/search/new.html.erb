@@ -1,38 +1,33 @@
-<h1>ZSearch</h1>
+<%= render partial: "form", object: @search, as: :search %>
 
-<p>Search organizations, users, and/or tickets.</p>
+<h3>Search Help</h3>
+<p>
+Available search syntax:</br>
+- Search by field - name:John Doe</br>
+- Search by multiple fields - name:John Doe,active:true</br>
+- Search for an empty field - name:</br>
+</p>
 
-<%= form_with model: @search, url: search_path, local: true do |f| %>
-  <div id="search">
-  <%= f.label :query, "Query:" %>
-  <%= f.text_field :query %>
-  <%= f.submit "Search" %>
-  </div>
-  <div id="search_types">
-    Search For:
-    <%= f.label :type, "Tickets"  %>
-    <%= f.radio_button :type, 'ticket', checked: true %>
+<h3>Searchable Fields By Search Type</h3>
 
-    <%= f.label :type, "Users"  %>
-    <%= f.radio_button :type, 'user' %>
-
-    <%= f.label :type, "Organizations"  %>
-    <%= f.radio_button :type, 'organization' %>
-  </div>
+Ticket Fields: [
+<% @search.available_fields[:ticket].each do |field| %>
+  <%= field %>
 <% end %>
-</br>
+]
+<br/>
+<br/>
 
-<% if @search.errors.any? %>
-  <div id="error">
-    <ul>
-      <% @search.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% else %>
-  <div class="results">
-    <%= render(partial: @search.type, collection: @search.results) || "No results found" %>
-  </div>
+User Fields: [
+<% @search.available_fields[:user].each do |field| %>
+  <%= field %>
 <% end %>
+]
+<br/>
+<br/>
 
+Organization Fields: [
+<% @search.available_fields[:organization].each do |field| %>
+  <%= field %>
+<% end %>
+]

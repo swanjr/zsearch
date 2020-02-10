@@ -67,12 +67,13 @@ yarn install
 rails db:create db:migrate db:seed
 ```
 
-## Start the Application
+## Use Application
 Start rails server locally:
 ```shell
 rails s
 ```
-View application in browser at http://localhost:3000. 
+View application in browser at http://localhost:3000. The instructions for how to use the search are displayed 
+on the homepage page.
 
 # Test Suite
 All testing was done with RSpec model, request, and system specs. 

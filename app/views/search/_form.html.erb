@@ -1,0 +1,18 @@
+<%= form_with model: @search, url: search_path, local: true do |f| %>
+  <div id="search">
+  <%= f.label :query, "Query:" %>
+  <%= f.text_field :query %>
+  <%= f.submit "Search" %>
+  </div>
+  <div id="search_types">
+    Search For: </br>
+    <%= f.label :type, "Tickets"  %>
+    <%= f.radio_button :type, 'ticket', checked: true %>
+
+    <%= f.label :type, "Users"  %>
+    <%= f.radio_button :type, 'user' %>
+
+    <%= f.label :type, "Organizations"  %>
+    <%= f.radio_button :type, 'organization' %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<%= render partial: "form", object: @search, as: :search %>
+
+<h3>Search Results</h3>
+<%= link_to "Clear Search", new_search_path %>
+</br></br>
+
+<% if @search.errors.any? %>
+  <div id="error">
+    <ul>
+      <% @search.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div class="results">
+    <%= render(partial: @search.type, collection: @search.results) || "No results found" %>
+  </div>
+<% end %>
+
