@@ -7,6 +7,8 @@ FactoryBot.define do
     external_id { SecureRandom.uuid }
     name { Faker::Name.name }
     created_at { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
+    tags { Faker::Lorem.unique.words(number: 3).join(' ') }
+    domain_names { Faker::Lorem.unique.words(number: 4).join(' ') }
 
     factory :organization_with_users do
       transient do

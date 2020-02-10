@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '.search' do
-    let!(:bob) { FactoryBot.create(:user, name: 'Bob') }
+    let!(:bob) { FactoryBot.create(:user, name: 'Bob', tags: 'hello world') }
     let!(:julia) { FactoryBot.create(:user, name: 'Julia') }
 
     it 'returns users matching the provided column/values pairs' do
@@ -46,6 +46,12 @@ RSpec.describe User, type: :model do
       users = described_class.search(name: bob.name)
       expect(users.first.organization).not_to be_nil
       expect(users.first.organization.name).not_to be_blank
+    end
+
+    it 'returns users matching a tag' do
+      users = described_class.search(tags: 'hello')
+      expect(users.count).to be(1)
+      expect(users.first.name).to eq(bob.name)
     end
   end
 end

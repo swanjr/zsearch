@@ -9,6 +9,14 @@
 # Load organizations into db
 path = File.join(File.dirname(__FILE__), "data/organizations.json")
 JSON.parse(File.read(path)).each do |data|
+  # Convert domains list to a String
+  domains = data.fetch('domain_names', "")
+  data['domain_names'] = domains.join(' ')  
+
+  # Convert tags list to a String
+  tags = data.fetch('tags', "")
+  data['tags'] = tags.join(' ')  
+
   Organization.create!(data)
 end
 
@@ -20,6 +28,11 @@ JSON.parse(File.read(path)).each do |data|
     puts "Removing bad organization_id '#{data['organization_id']} from User '#{data['_id']}'. Organization does not exist."
     data.delete('organization_id')
   end
+
+  # Convert tags list to a String
+  tags = data.fetch('tags', "")
+  data['tags'] = tags.join(' ')  
+
   User.create!(data)
 end
 
@@ -41,5 +54,10 @@ JSON.parse(File.read(path)).each do |data|
     puts "Removing bad assignee_id '#{data['assignee_id']} from Ticket '#{data['_id']}'. User does not exist."
     data.delete('assignee_id')
   end
+
+  # Convert tags list to a String
+  tags = data.fetch('tags', "")
+  data['tags'] = tags.join(' ')  
+
   Ticket.create!(data)
 end

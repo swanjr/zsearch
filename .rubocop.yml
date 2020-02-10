@@ -22,6 +22,9 @@ Metrics/BlockLength:
     - config/**/*
     - spec/**/*
 
+Metrics/MethodLength:
+  Max: 15
+
 Style/Documentation:
   Enabled: false
 

@@ -32,6 +32,15 @@ class Ticket < ApplicationRecord
   end
 
   def self.search(criteria)
-    Ticket.includes(:organization, :submitter, :assignee).where(criteria)
+    relation = Ticket.includes(:organization, :submitter, :assignee)
+
+    tags = criteria.delete(:tags)
+    if tags.present?
+      tags.split(' ').each do |tag|
+        relation = relation.where('tags LIKE ?', "%#{tag}%")
+      end
+    end
+
+    relation = relation.where(criteria)
   end
 end
