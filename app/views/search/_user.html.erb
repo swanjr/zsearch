@@ -5,7 +5,7 @@
   <div>Alias: <%=user.alias %></div> 
   <div>Email: <%=user.email %></div>
   <div>Phone: <%=user.phone %></div>
-  <div>Organization: <%=user.organization.name if user.organization.present? %></div>
+  <div>Organization: <%= "#{user.organization.name} (#{user.organization.external_id})" if user.organization.present? %></div>
   <div>Role: <%=user.role %></div>
   <div>Active: <%=user.active %></div>
   <div>Verified: <%=user.verified %></div>
@@ -17,5 +17,13 @@
   <div>Created: <%=user.created_at %></div>
   <div>Signature: <%=user.signature %></div>
   <div>Tags: <%=user.tags %></div>
+
+  <% user.submitted_tickets.each_with_index do |ticket, index| %>
+    <div>Submitted Ticket <%=index%>: <%=ticket.subject %> (<%=ticket.external_id %>)</div>
+  <% end %>
+
+  <% user.assigned_tickets.each_with_index do |ticket, index| %>
+    <div>Assigned Ticket <%=index%>: <%=ticket.subject %> (<%=ticket.external_id %>)</div>
+  <% end %>
 </div>
 </br>

@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context 'with associations' do
     it { is_expected.to belong_to(:organization).optional(true) }
+    it { is_expected.to have_many(:submitted_tickets).inverse_of('submitter').dependent(:nullify) }
+    it { is_expected.to have_many(:assigned_tickets).inverse_of('assignee').dependent(:nullify) }
   end
 
   context 'with validations' do
@@ -33,8 +35,8 @@ RSpec.describe User, type: :model do
   end
 
   describe '.search' do
-    let!(:bob) { FactoryBot.create(:user, name: 'Bob', tags: 'hello world') }
-    let!(:julia) { FactoryBot.create(:user, name: 'Julia') }
+    let!(:bob) { FactoryBot.create(:user_with_tickets, name: 'Bob', tags: 'hello world') }
+    let!(:julia) { FactoryBot.create(:user_with_tickets, name: 'Julia') }
 
     it 'returns users matching the provided column/values pairs' do
       users = described_class.search(name: julia.name)
@@ -46,6 +48,18 @@ RSpec.describe User, type: :model do
       users = described_class.search(name: bob.name)
       expect(users.first.organization).not_to be_nil
       expect(users.first.organization.name).not_to be_blank
+    end
+
+    it 'returns submitted ticket information for users' do
+      users = described_class.search(name: bob.name)
+      expect(users.first.submitted_tickets).not_to be_empty
+      expect(users.first.submitted_tickets.first.subject).not_to be_blank
+    end
+
+    it 'returns assigned ticket information for users' do
+      users = described_class.search(name: bob.name)
+      expect(users.first.assigned_tickets).not_to be_empty
+      expect(users.first.assigned_tickets.first.subject).not_to be_blank
     end
 
     it 'returns users matching a tag' do

@@ -9,7 +9,7 @@
   <div>Tags: <%=organization.tags %></div>
 
   <% organization.users.each_with_index do |user, index| %>
-    <div>User <%=index%>: <%=user.name %></div>
+    <div>User <%=index%>: <%=user.name %> (<%=user.external_id %>)</div>
   <% end %>
 </div>
 </br>

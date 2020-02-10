@@ -7,9 +7,9 @@
   <div>Status: <%=ticket.status %></div>
   <div>Priority: <%=ticket.priority %></div>
   <div>Has Incidents: <%=ticket.has_incidents %></div>
-  <div>Submitted By: <%=ticket.submitter.name if ticket.submitter.present? %></div> 
-  <div>Assigned To: <%=ticket.assignee.name if ticket.assignee.present? %></div>
-  <div>Organization: <%=ticket.organization.name if ticket.organization.present? %></div>
+  <div>Submitted By: <%= "#{ticket.submitter.name} (#{ticket.submitter.external_id})" if ticket.submitter.present? %></div> 
+  <div>Assigned To: <%="#{ticket.assignee.name} (#{ticket.assignee.external_id})" if ticket.assignee.present? %></div>
+  <div>Organization: <%= "#{ticket.organization.name} (#{ticket.organization.external_id})" if ticket.organization.present? %></div>
   <div>Due At: <%=ticket.due_at %></div>
   <div>Created: <%=ticket.created_at %></div>
   <div>Via: <%=ticket.via%></div>

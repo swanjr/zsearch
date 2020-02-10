@@ -10,7 +10,7 @@ RSpec.describe 'Search', type: :system do
   end
 
   context 'when searching users' do
-    let!(:users) { FactoryBot.create_list(:user, 2) }
+    let!(:users) { FactoryBot.create_list(:user_with_tickets, 2) }
 
     it 'displays users matching the query' do
       visit '/'
@@ -22,6 +22,9 @@ RSpec.describe 'Search', type: :system do
       click_button 'Search'
 
       expect(page).to have_text("Name: #{users.first.name}")
+      expect(page).to have_text("Organization: #{users.first.organization.name}")
+      expect(page).to have_text(users.first.submitted_tickets.last.subject.to_s)
+      expect(page).to have_text(users.first.assigned_tickets.last.subject.to_s)
       expect(page).not_to have_text("Name: #{users.second.name}")
     end
   end
@@ -39,6 +42,7 @@ RSpec.describe 'Search', type: :system do
       click_button 'Search'
 
       expect(page).to have_text("Name: #{organizations.first.name}")
+      expect(page).to have_text(organizations.first.users.last.name.to_s)
       expect(page).not_to have_text("Name: #{organizations.second.name}")
     end
   end
@@ -56,6 +60,9 @@ RSpec.describe 'Search', type: :system do
       click_button 'Search'
 
       expect(page).to have_text("Subject: #{tickets.first.subject}")
+      expect(page).to have_text("Organization: #{tickets.first.organization.name}")
+      expect(page).to have_text("Submitted By: #{tickets.first.submitter.name}")
+      expect(page).to have_text("Assigned To: #{tickets.first.assignee.name}")
       expect(page).not_to have_text("Subject: #{tickets.second.subject}")
     end
   end
