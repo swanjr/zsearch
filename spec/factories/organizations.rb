@@ -7,5 +7,15 @@ FactoryBot.define do
     external_id { SecureRandom.uuid }
     name { Faker::Name.name }
     created_at { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
+
+    factory :organization_with_users do
+      transient do
+        user_count { 2 }
+      end
+
+      after(:create) do |organization, evaluator|
+        create_list(:user, evaluator.user_count, organization: organization)
+      end
+    end
   end
 end

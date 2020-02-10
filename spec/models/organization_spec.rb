@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Organization, type: :model do
+  context 'with associations' do
+    it { is_expected.to have_many(:users).dependent(:destroy) }
+  end
+
   context 'with validations' do
     subject { FactoryBot.build(:organization) }
 
@@ -16,5 +20,31 @@ RSpec.describe Organization, type: :model do
     it { is_expected.to validate_uniqueness_of(:url).ignoring_case_sensitivity }
     it { is_expected.to validate_uniqueness_of(:external_id).ignoring_case_sensitivity }
     it { is_expected.to validate_uniqueness_of(:name).ignoring_case_sensitivity }
+  end
+
+  describe '.searchable_fields' do
+    it 'returns fields that can be searched on' do
+      expect(described_class.column_names.map(&:to_sym)).to include(*described_class.searchable_fields)
+    end
+
+    it 'to not return internal ids' do
+      expect(described_class.searchable_fields).not_to include(:_id)
+    end
+  end
+
+  describe '.search' do
+    let!(:apple) { FactoryBot.create(:organization_with_users, name: 'Apple') }
+    let!(:zendesk) { FactoryBot.create(:organization_with_users, name: 'Zendesk') }
+
+    it 'returns organizations matching the provided column/values pairs' do
+      organizations = described_class.search(name: zendesk.name)
+      expect(organizations.count).to be(1)
+      expect(organizations.first.name).to eq(zendesk.name)
+    end
+
+    it 'returns users associated with the organization' do
+      organizations = described_class.search(name: apple.name)
+      expect(organizations.first.users.count).to be(apple.users.count)
+    end
   end
 end

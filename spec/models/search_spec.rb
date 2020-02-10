@@ -36,6 +36,12 @@ RSpec.describe Search, type: :model do
       expect(search.results).to eq([])
     end
 
+    it 'returns an empty array if query has no fields' do
+      search.query = ':'
+      search.run
+      expect(search.results).to eq([])
+    end
+
     it "returns the model's search results if 'run' has been called" do
       user = User.new(name: 'Bob')
       allow(User).to receive(:search).and_return([user])
