@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :ticket do
-    sequence(:_id) { |n| n }
+    sequence(:_id) { |n| (Ticket.last.try(:_id) || 0).to_i + 1 }
     sequence(:url) { |_n| "http://#{Faker::Internet.unique.domain_word}.zendesk.com/api/v2/tickets/#{_id}.json" }
     external_id { SecureRandom.uuid }
     subject { Faker::Lorem.unique.words(number: 3).join(' ') }

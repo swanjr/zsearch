@@ -30,7 +30,7 @@ RSpec.describe 'Search', type: :system do
   end
 
   context 'when searching organizations' do
-    let!(:organizations) { FactoryBot.create_list(:organization_with_users, 2) }
+    let!(:organizations) { FactoryBot.create_list(:organization_with_users_and_tickets, 2) }
 
     it 'displays organizations matching the query' do
       visit '/'
@@ -44,6 +44,10 @@ RSpec.describe 'Search', type: :system do
       expect(page).to have_text("Name: #{organizations.first.name}")
       expect(page).to have_text(organizations.first.users.last.name.to_s)
       expect(page).not_to have_text("Name: #{organizations.second.name}")
+      expect(page).to have_text("Ticket Status: ")
+      organizations.first.tickets.each do 
+        expect(page).to have_text("Open (1), Closed (2)")
+      end
     end
   end
 
