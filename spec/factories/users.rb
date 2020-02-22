@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:_id) { |n| n }
+    sequence(:_id) { |n| (User.last.try(:_id) || 0).to_i + 1 }
     sequence(:url) { |_n| "http://#{Faker::Internet.unique.domain_word}.zendesk.com/api/v2/users/#{_id}.json" }
     external_id { SecureRandom.uuid }
     name { Faker::Name.name }

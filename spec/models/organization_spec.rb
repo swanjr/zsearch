@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Organization, type: :model do
   context 'with associations' do
     it { is_expected.to have_many(:users).dependent(:destroy) }
+    it { is_expected.to have_many(:tickets).dependent(:destroy) }
   end
 
   context 'with validations' do
@@ -20,6 +21,15 @@ RSpec.describe Organization, type: :model do
     it { is_expected.to validate_uniqueness_of(:url).ignoring_case_sensitivity }
     it { is_expected.to validate_uniqueness_of(:external_id).ignoring_case_sensitivity }
     it { is_expected.to validate_uniqueness_of(:name).ignoring_case_sensitivity }
+  end
+
+  describe '#ticket_count_by_status' do
+    it "returns a hash of statuses with their ticket totals" do
+      org = FactoryBot.create(:organization_with_users_and_tickets)
+
+      status_counts = org.ticket_count_by_status
+      expect(status_counts).to include('open' => 1, 'closed' => 2)
+    end
   end
 
   describe '.searchable_fields' do

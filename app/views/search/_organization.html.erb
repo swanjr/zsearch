@@ -11,5 +11,9 @@
   <% organization.users.each_with_index do |user, index| %>
     <div>User <%=index%>: <%=user.name %> (<%=user.external_id %>)</div>
   <% end %>
+
+  <% unless organization.tickets.empty? %>
+    <div>Ticket Status: <%=ticket_counts(organization)%></div>
+  <% end %>
 </div>
 </br>
