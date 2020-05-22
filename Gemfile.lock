@@ -127,7 +127,7 @@ GEM
     parser (2.7.0.2)
       ast (~> 2.4.0)
     public_suffix (4.0.3)
-    puma (4.3.1)
+    puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.1.2)
     rack-mini-profiler (1.1.6)
@@ -266,7 +266,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4)
-  puma (~> 4.1)
+  puma (~> 4.3)
   rack-mini-profiler
   rails (~> 6.0.2, >= 6.0.2.1)
   rspec-rails (~> 4.0.0.beta)
